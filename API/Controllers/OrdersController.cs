@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using API.Dtos;
 using API.Errors;
 using API.Extensions;
@@ -59,6 +58,8 @@ public class OrdersController : BaseApiController
     }
 
     [HttpGet("deliveryMethods")]
-    public async Task<ActionResult<IReadOnlyList<DeliveryMethod>>> GetDeliveryMethods() =>
-        Ok(await _orderService.GetDeliveryMethodsAsync());
+    public async Task<ActionResult<IReadOnlyList<DeliveryMethod>>> GetDeliveryMethods()
+    {
+        return Ok(await _orderService.GetDeliveryMethodsAsync());
+    }
 }
