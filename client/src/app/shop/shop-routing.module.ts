@@ -5,8 +5,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ShopComponent } from './shop.component';
 
 const routes: Routes = [
-  { path: '', component: ShopComponent },
-  { path: ':id', component: ProductDetailsComponent, data: { breadcrumb: { alias: 'productDetails' } } }
+  {path: '', component: ShopComponent},
+  {path: ':id', component: ProductDetailsComponent, data: {breadcrumb: {alias: 'productDetails'}}},
 ]
 
 @NgModule({
@@ -14,6 +14,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes)
   ],
-  exports: [RouterModule]
+  exports: [
+    RouterModule
+  ]
 })
 export class ShopRoutingModule { }

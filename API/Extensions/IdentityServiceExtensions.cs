@@ -1,46 +1,47 @@
 using System.Text;
 using Core.Entities.Identity;
-using Infrastructure.Identity;
+using Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
-namespace API.Extensions;
-
-public static class IdentityServiceExtensions
+namespace API.Extensions
 {
-    public static IServiceCollection AddIdentityServices(
-        this IServiceCollection services, IConfiguration config)
+    public static class IdentityServiceExtensions
     {
-        services.AddDbContext<AppIdentityDbContext>(opt =>
+        public static IServiceCollection AddIdentityServices(this IServiceCollection services, 
+            IConfiguration config)
         {
-            opt.UseSqlite(config.GetConnectionString("IdentityConnection"));
-        });
-
-        services.AddIdentityCore<AppUser>(opt =>
-        {
-            // add identity options here
-        })
-        .AddEntityFrameworkStores<AppIdentityDbContext>()
-        .AddSignInManager<SignInManager<AppUser>>();
-
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
+            services.AddDbContext<AppIdentityDbContext>(opt =>
             {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Token:Key"])),
-                    ValidIssuer = config["Token:Issuer"],
-                    ValidateIssuer = true,
-                    ValidateAudience = false
-                };
+                opt.UseSqlite(config.GetConnectionString("IdentityConnection"));
             });
 
+            services.AddIdentityCore<AppUser>(opt => 
+            {
+                // add identity options here
+            })
+            .AddEntityFrameworkStores<AppIdentityDbContext>()
+            .AddSignInManager<SignInManager<AppUser>>();
 
-        services.AddAuthorization();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => 
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey  = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Token:Key"])),
+                        ValidIssuer = config["Token:Issuer"],
+                        ValidateIssuer = true,
+                        ValidateAudience = false
+                    };
+                });
 
-        return services;
+
+            services.AddAuthorization();
+
+            return services;
+        }
     }
 }

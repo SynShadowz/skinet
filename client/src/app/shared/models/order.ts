@@ -1,17 +1,9 @@
-import { Address } from "./user"
+import { Address } from "./user";
 
 export interface OrderToCreate {
     basketId: string;
     deliveryMethodId: number;
     shipToAddress: Address;
-}
-
-export interface OrderItem {
-    productId: number;
-    productName: string;
-    pictureUrl: string;
-    price: number;
-    quantity: number;
 }
 
 export interface Order {
@@ -22,7 +14,15 @@ export interface Order {
     deliveryMethod: string;
     shippingPrice: number;
     orderItems: OrderItem[];
-    subTotal: number;
+    subtotal: number;
     total: number;
     status: string;
-}
+  }
+
+  export interface OrderItem {
+    productId: number;
+    productName: string;
+    pictureUrl: string;
+    price: number;
+    quantity: number;
+  }

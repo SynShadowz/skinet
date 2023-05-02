@@ -269,10 +269,6 @@ ServiceFabricBackup/
 *.ldf
 *.ndf
 
-# SQLite files
-*.db-shm
-*.db-wal
-
 # Business Intelligence projects
 *.rdl.data
 *.bim.layout
@@ -479,3 +475,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+.idea
+*.db-shm
+*.db-wal

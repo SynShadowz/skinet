@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Product } from '../shared/models/product';
-import { ShopService } from './shop.service';
 import { Brand } from '../shared/models/brand';
-import { Type } from '../shared/models/type';
+import { Product } from '../shared/models/product';
 import { ShopParams } from '../shared/models/shopParams';
+import { Type } from '../shared/models/type';
+import { ShopService } from './shop.service';
 
 @Component({
   selector: 'app-shop',
@@ -17,13 +17,13 @@ export class ShopComponent implements OnInit {
   types: Type[] = [];
   shopParams = new ShopParams();
   sortOptions = [
-    { name: 'Alphabetical', value: 'name' },
-    { name: 'Price: Low to High', value: 'priceAsc' },
-    { name: 'Price: High to Low', value: 'priceDesc' }
+    {name: 'Alphabetical', value: 'name'},
+    {name: 'Price: Low to high', value: 'priceAsc'},
+    {name: 'Price: High to low', value: 'priceDesc'},
   ];
   totalCount = 0;
 
-  constructor(private shopService: ShopService) { }
+  constructor(private shopService: ShopService) {}
 
   ngOnInit(): void {
     this.getProducts();
@@ -45,26 +45,26 @@ export class ShopComponent implements OnInit {
 
   getBrands() {
     this.shopService.getBrands().subscribe({
-      next: response => this.brands = [{ id: 0, name: 'All' }, ...response],
+      next: response => this.brands = [{id: 0, name: 'All'}, ...response],
       error: error => console.log(error)
     })
   }
 
   getTypes() {
     this.shopService.getTypes().subscribe({
-      next: response => this.types = [{ id: 0, name: 'All' }, ...response],
+      next: response => this.types = [{id: 0, name: 'All'}, ...response],
       error: error => console.log(error)
     })
   }
 
-  onBrandSelected(id: number) {
-    this.shopParams.brandId = id;
+  onBrandSelected(brandId: number) {
+    this.shopParams.brandId = brandId;
     this.shopParams.pageNumber = 1;
     this.getProducts();
   }
 
-  onTypeSelected(id: number) {
-    this.shopParams.typeId = id;
+  onTypeSelected(typeId: number) {
+    this.shopParams.typeId = typeId;
     this.shopParams.pageNumber = 1;
     this.getProducts();
   }
@@ -75,7 +75,7 @@ export class ShopComponent implements OnInit {
   }
 
   onPageChanged(event: any) {
-    if (this.shopParams.pageNumber != event){
+    if (this.shopParams.pageNumber !== event) {
       this.shopParams.pageNumber = event;
       this.getProducts();
     }
@@ -90,6 +90,7 @@ export class ShopComponent implements OnInit {
   onReset() {
     if (this.searchTerm) this.searchTerm.nativeElement.value = '';
     this.shopParams = new ShopParams();
-      this.getProducts();
+    this.getProducts();
   }
+
 }

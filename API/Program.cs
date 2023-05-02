@@ -1,7 +1,9 @@
 using API.Extensions;
 using API.Middleware;
 using Core.Entities.Identity;
+using Infrastructue.Data;
 using Infrastructure.Data;
+using Infrastructure.Data.Identity;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddSwaggerDocumentation();
@@ -49,7 +50,7 @@ try
 }
 catch (Exception ex)
 {
-    logger.LogError(ex, "An error occured during migration.");
+    logger.LogError(ex, "An error occured during migration");
 }
 
 app.Run();

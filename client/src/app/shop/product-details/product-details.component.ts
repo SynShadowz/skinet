@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/shared/models/product';
-import { ShopService } from '../shop.service';
 import { ActivatedRoute } from '@angular/router';
-import { BreadcrumbService } from 'xng-breadcrumb';
-import { BasketService } from 'src/app/basket/basket.service';
 import { take } from 'rxjs';
+import { BasketService } from 'src/app/basket/basket.service';
+import { Product } from 'src/app/shared/models/product';
+import { BreadcrumbService } from 'xng-breadcrumb';
+import { ShopService } from '../shop.service';
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
 })
-export class ProductDetailsComponent implements OnInit{
+export class ProductDetailsComponent implements OnInit {
   product?: Product;
   quantity = 1;
   quantityInBasket = 0;
 
-  constructor(private shopService: ShopService, private activatedRoute: ActivatedRoute,
+  constructor(private shopService: ShopService, private activatedRoute: ActivatedRoute, 
     private bcService: BreadcrumbService, private basketService: BasketService) {
-    this.bcService.set('@productDetails', ' ');
+      this.bcService.set('@productDetails', ' ')
     }
-  
+
   ngOnInit(): void {
     this.loadProduct();
   }
@@ -58,7 +58,7 @@ export class ProductDetailsComponent implements OnInit{
       if (this.quantity > this.quantityInBasket) {
         const itemsToAdd = this.quantity - this.quantityInBasket;
         this.quantityInBasket += itemsToAdd;
-        this.basketService.addItemToBasket(this.product, this.quantityInBasket);
+        this.basketService.addItemToBasket(this.product, itemsToAdd);
       } else {
         const itemsToRemove = this.quantityInBasket - this.quantity;
         this.quantityInBasket -= itemsToRemove;
@@ -70,4 +70,5 @@ export class ProductDetailsComponent implements OnInit{
   get buttonText() {
     return this.quantityInBasket === 0 ? 'Add to basket' : 'Update basket';
   }
+
 }

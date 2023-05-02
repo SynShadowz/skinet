@@ -1,17 +1,17 @@
 using Core.Entities.OrderAggregate;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Data.Config;
-
-public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
+namespace Infrastructure.Data.Config
 {
-    public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<OrderItem> builder)
+    public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
     {
-        builder.OwnsOne(i => i.ItemOrdered, io =>
+        public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
-            io.WithOwner();
-        });
-        builder.Property(i => i.Price)
-            .HasColumnType("decimal(18,2)");
+            builder.OwnsOne(i => i.ItemOrdered, io => {io.WithOwner();});
+
+            builder.Property(i => i.Price)
+                .HasColumnType("decimal(18,2)");
+        }
     }
 }

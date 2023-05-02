@@ -1,31 +1,32 @@
 using Core.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 
-namespace Infrastructure.Identity;
-
-public class AppIdentityDbContextSeed
+namespace Infrastructure.Identity
 {
-    public static async Task SeedUsersAsync(UserManager<AppUser> userManager)
+    public class AppIdentityDbContextSeed
     {
-        if (!userManager.Users.Any())
+        public static async Task SeedUsersAsync(UserManager<AppUser> userManager)
         {
-            var user = new AppUser
+            if (!userManager.Users.Any())
             {
-                DisplayName = "Bob",
-                Email = "bob@test.com",
-                UserName = "bob@test.com",
-                Address = new Address
+                var user = new AppUser
                 {
-                    FirstName = "Bob",
-                    LastName = "Bobbity",
-                    Street = "10 The Street",
-                    City = "New York",
-                    State = "NY",
-                    ZipCode = "90210"
-                }
-            };
+                    DisplayName = "Bob",
+                    Email = "bob@test.com",
+                    UserName = "bob@test.com",
+                    Address = new Address
+                    {
+                        FirstName = "Bob",
+                        LastName = "Bobbity",
+                        Street = "10 The street",
+                        City = "New York",
+                        State = "NY",
+                        Zipcode = "90210"
+                    }
+                };
 
-            await userManager.CreateAsync(user, "Pa$$w0rd");
+                await userManager.CreateAsync(user, "Pa$$w0rd");
+            }
         }
     }
 }
