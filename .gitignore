@@ -476,6 +476,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+publish/*
+API/wwwroot/*
+
 .idea
 *.db-shm
 *.db-wal
